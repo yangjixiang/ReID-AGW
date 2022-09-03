@@ -26,8 +26,9 @@ _C.MODEL.NAME = 'resnet50'
 # Last stride of backbone
 _C.MODEL.LAST_STRIDE = 1
 # Path to pretrained model of backbone
-_C.MODEL.PRETRAIN_PATH = ''
-# Use ImageNet pretrained model to initialize backbone or use self trained model to initialize the whole model
+_C.MODEL.PRETRAIN_PATH = '/home/server/Users/Janson/Code/ReID-AGW/configs/resnet50-19c8e357.pth'
+# Use ImageNet pretrained model to initialize backbone
+# or use self trained model to initialize the whole model
 # Options: 'imagenet' or 'self'
 _C.MODEL.PRETRAIN_CHOICE = 'imagenet'
 # If train with center loss, options: 'bnneck' or 'no'
@@ -61,9 +62,9 @@ _C.INPUT.PADDING = 10
 # -----------------------------------------------------------------------------
 _C.DATASETS = CN()
 # List of the dataset names for training, as present in paths_catalog.py
-_C.DATASETS.NAMES = ('market1501')
+_C.DATASETS.NAMES = 'market1501'
 # Root directory where datasets should be used (and downloaded if not found)
-_C.DATASETS.ROOT_DIR = ('./toDataset')
+_C.DATASETS.ROOT_DIR = '/media/server/Files/DataSet/Public/Re-ID_Dataset'
 
 # -----------------------------------------------------------------------------
 # DataLoader
@@ -132,7 +133,8 @@ _C.TEST.IMS_PER_BATCH = 128
 _C.TEST.RE_RANKING = 'off'
 # Path to trained model
 _C.TEST.WEIGHT = ""
-# Whether feature is nomalized before test, if on, it is equivalent to cosine distance
+# Whether feature is nomalized before test,
+# if on, it is equivalent to cosine distance
 _C.TEST.FEAT_NORM = 'on'
 _C.TEST.EVALUATE_ONLY = 'off'
 # Whether to evaluate on partial re-id dataset
@@ -142,4 +144,4 @@ _C.TEST.PARTIAL_REID = 'off'
 # Misc options
 # ---------------------------------------------------------------------------- #
 # Path to checkpoint and saved log of trained model
-_C.OUTPUT_DIR = ""
+_C.OUTPUT_DIR = "./"
