@@ -1,12 +1,9 @@
 # encoding: utf-8
 
-import argparse
 import os
 import sys
 import torch
-
 from torch.backends import cudnn
-
 sys.path.append('.')
 from config import cfg
 from data import make_data_loader
@@ -15,9 +12,11 @@ from utils.lr_scheduler import WarmupMultiStepLR
 from utils.logger import setup_logger
 from tools.train import do_train
 from tools.test import do_test
+# import argparse
 
 
-def main():
+def main(config_file, opts):
+    """
     # config_file: path to config file
     # opts: modify config options using the command-line
     # config_file, opts = None
@@ -31,13 +30,15 @@ def main():
                         nargs=argparse.REMAINDER)
 
     args = parser.parse_args()
-
+    """
+    # 通过 os.environ 可以获取环境变量
+    print("WORLD_SIZE" if "WORLD_SIZE" in os.environ else 1)
     num_gpus = int(
         os.environ["WORLD_SIZE"]) if "WORLD_SIZE" in os.environ else 1
 
-    if args.config_file != "":
-        cfg.merge_from_file(args.config_file)
-    cfg.merge_from_list(args.opts)
+    if config_file != "":
+        cfg.merge_from_file(config_file)
+    cfg.merge_from_list(opts)
     cfg.freeze()
 
     output_dir = cfg.OUTPUT_DIR
@@ -46,11 +47,11 @@ def main():
 
     logger = setup_logger("reid_baseline", output_dir, 0)
     logger.info("Using {} GPUS".format(num_gpus))
-    logger.info(args)
+    # logger.info(args)
 
-    if args.config_file != "":
-        logger.info("Loaded configuration file {}".format(args.config_file))
-        with open(args.config_file, 'r') as cf:
+    if config_file != "":
+        logger.info("Loaded configuration file {}".format(config_file))
+        with open(config_file, 'r') as cf:
             config_str = "\n" + cf.read()
             logger.info(config_str)
     logger.info("Running with config:\n{}".format(cfg))
@@ -109,7 +110,6 @@ def main():
                                       cfg.SOLVER.WARMUP_FACTOR,
                                       cfg.SOLVER.WARMUP_ITERS,
                                       cfg.SOLVER.WARMUP_METHOD)
-
     else:
         print(
             'Only support pretrain_choice for imagenet and self, but got {}'.format(
@@ -127,4 +127,11 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    config_file = '../configs/AGW_baseline.yml'
+    opts = ['MODEL.DEVICE_ID', "('0')",
+            'DATASETS.NAMES', "('market1501')",
+            'OUTPUT_DIR', "('./log/market1501/Experiment-AGW-baseline')",
+            'MODEL.PRETRAIN_PATH', "('/media/server/Files/Model/Janson/ReID-AGW/Pre-train/resnet50-19c8e357.pth')",
+            'SOLVER.CHECKPOINT_PERIOD', '(50)']
+
+    main(config_file, opts)

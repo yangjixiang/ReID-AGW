@@ -26,7 +26,7 @@ _C.MODEL.NAME = 'resnet50'
 # Last stride of backbone
 _C.MODEL.LAST_STRIDE = 1
 # Path to pretrained model of backbone
-_C.MODEL.PRETRAIN_PATH = '/home/server/Users/Janson/Code/ReID-AGW/configs/resnet50-19c8e357.pth'
+_C.MODEL.PRETRAIN_PATH = '/media/server/Files/Model/Janson/ReID-AGW/Pre-train/resnet50-19c8e357.pth'
 # Use ImageNet pretrained model to initialize backbone
 # or use self trained model to initialize the whole model
 # Options: 'imagenet' or 'self'
@@ -144,4 +144,4 @@ _C.TEST.PARTIAL_REID = 'off'
 # Misc options
 # ---------------------------------------------------------------------------- #
 # Path to checkpoint and saved log of trained model
-_C.OUTPUT_DIR = "./"
+_C.OUTPUT_DIR = "/media/server/Files/Model/Janson/ReID-AGW/checkpoint/"

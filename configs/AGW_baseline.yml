@@ -1,6 +1,6 @@
 MODEL:
   PRETRAIN_CHOICE: 'imagenet'
-  PRETRAIN_PATH: '/home/cgv841/.cache/torch/checkpoints/resnet50-19c8e357.pth'
+  PRETRAIN_PATH: '/media/server/Files/Model/Janson/ReID-AGW/Pre-train/resnet50-19c8e357.pth'
   CENTER_LOSS: 'on'
   CENTER_FEAT_DIM: 2048
   NAME: 'resnet50_nl'
